@@ -1,10 +1,13 @@
 /* Componentes */
 @import url('./header.css');
+@import url('./form.css');
 
 /* Fontes */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
+    --slate-800: #1e293b;
+
     --font-size: 62.5%
 }
 
@@ -17,5 +20,9 @@
 html, body {
     width: 100vw;
     height: 100vh;
+    background-color: var(--slate-800);
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
+
+    display: flex;
+    flex-direction: column;
 }

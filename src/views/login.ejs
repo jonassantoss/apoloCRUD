@@ -1,5 +1,18 @@
 <%- include('./partials/head.ejs') %>
 <%- include('./partials/header.ejs') %>
-<div>
-    Teste
+<div class="container">
+    <div class="formulario__container">
+        <h1 class="formulario__container-titulo">Login</h1>
+        <form action="/login" method="POST" class="formulario">
+            <label class="formulario__input">
+                Usuário
+                <input type="text" name="user" id="iuser">
+            </label>
+            <label class="formulario__input">
+                Senha
+                <input type="password" name="password" id="ipassword">
+            </label>
+            <button type="submit" class="botao formulario__botao">Fazer Login</button>
+        </form>
+    </div>
 </div>
