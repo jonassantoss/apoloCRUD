@@ -1,28 +1,46 @@
-const express = require('express')
-const session = require('express-session')
-const path = require('path')
-const routes = require('./routes')
+const express = require("express");
+const session = require("express-session");
+const path = require("path");
+const checkLogin = require('./middlewares/checkLogin')
+require('dotenv').config()
 
-const app = express()
+// Import de Rotas
+const loginRoute = require("./routes/loginRoute");
 
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static(path.resolve(__dirname, 'public')))
-app.set('views', path.resolve(__dirname, 'src', 'views'))
-app.set('view engine', 'ejs')
+const app = express();
 
-app.use(session({
-    secret: 'apolo@123',
+// View Engine setup
+app.set("views", path.resolve(__dirname, "src", "views"));
+app.set("view engine", "ejs");
+
+app.use(
+  session({
+    secret: "apolo@123",
     cookie: {
-        maxAge: 1600000
+      maxAge: 1600000,
     },
     resave: false,
-    saveUninitialized: false
-}))
+    saveUninitialized: false,
+  })
+);
 
-app.use(routes)
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.resolve(__dirname, "public")));
 
-const port = process.env.PORT || 3000
+// Rotas
+app.use(loginRoute)
+
+app.get("/", checkLogin, (req, res) => {
+  res.render("index");
+});
+
+app.use((req, res) => {
+  res.render("404");
+});
+
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log('Acessar http://localhost:3000')
-})
+  console.log(`Acessar http://localhost:${port}`);
+});

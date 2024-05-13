@@ -1,11 +1,12 @@
 .cabecalho {
-    background-color: #000;
+    background-color: var(--slate-800);
     padding: 1.6rem;
     text-align: center;
 }
 
-.cabecalho__container-titulo {
+.cabecalho__container-link {
     color: #fff;
     font-size: 2rem;
     font-weight: bold;
+    text-decoration: none;
 }

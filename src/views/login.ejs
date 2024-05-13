@@ -3,14 +3,14 @@
 <div class="container">
     <div class="formulario__container">
         <h1 class="formulario__container-titulo">Login</h1>
-        <form action="/login" method="POST" class="formulario">
-            <label class="formulario__input">
-                Usuário
-                <input type="text" name="user" id="iuser">
+        <form method="post" action="/login" class="formulario">
+            <label class="formulario__input--wrapper">
+                <input type="text" name="user" id="iuser" class="formulario__input" placeholder=" ">
+                <span class="formulario__label" aria-label="Nome de Usuário">Nome de Usuário</span>
             </label>
-            <label class="formulario__input">
-                Senha
-                <input type="password" name="password" id="ipassword">
+            <label class="formulario__input--wrapper">
+                <input type="password" name="password" id="ipassword" class="formulario__input" placeholder=" ">
+                <span class="formulario__label" aria-label="Senha">Senha</span>
             </label>
             <button type="submit" class="botao formulario__botao">Fazer Login</button>
         </form>
