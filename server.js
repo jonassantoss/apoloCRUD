@@ -1,11 +1,15 @@
+require('dotenv').config()
+
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
-const checkLogin = require('./middlewares/checkLogin')
-require('dotenv').config()
+const flash = require('connect-flash')
+
+// Import Middlewares
+const checkLogin = require('./src/middlewares/checkLogin')
 
 // Import de Rotas
-const loginRoute = require("./routes/loginRoute");
+const loginRoute = require("./src/routes/loginRoute");
 
 const app = express();
 
@@ -39,8 +43,4 @@ app.use((req, res) => {
   res.render("404");
 });
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`Acessar http://localhost:${port}`);
-});
+module.exports = app
