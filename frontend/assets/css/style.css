@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.formulario__input:focus ~ .formulario__label {
+    @apply top-[-0.6rem] left-[-0.5rem] text-xs;
+}
+
+.formulario__input:not(:placeholder-shown) ~ .formulario__label {
+    @apply top-[-0.6rem] left-[-0.5rem] text-xs;
+}

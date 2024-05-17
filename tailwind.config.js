@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{html,js,ejs}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'logo': 'Poetsen',
+        'display': 'Poppins, Arial, Helvetica, sans-serif'
+      }
+    },
   },
   plugins: [],
 }
