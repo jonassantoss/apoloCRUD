@@ -14,11 +14,11 @@ model Users {
   role     String
 }
 
-model Produtos {
+model Products {
   id          String  @id @default(uuid())
   name        String  @unique
   description String?
-  price       Float
+  price       Float   @default(0.0)
   amount      Int     @default(0)
 
   createdAt DateTime @default(now())

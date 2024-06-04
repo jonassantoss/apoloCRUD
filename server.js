@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+// General Imports
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
@@ -8,10 +9,14 @@ const helmet = require("helmet");
 const csrf = require("csurf");
 
 // Import Middlewares
-const checkLogin = require("./src/middlewares/checkLogin");
+const { middlewareGlobal, 
+        checkCSRFERROR,  
+        csrfMiddleware } = require("./src/middlewares/middlewares");
 
-// Import de Rotas
+// Import Routes
 const loginRoute = require("./src/routes/loginRoute");
+const homeRoute = require("./src/routes/homeRoute")
+const productRoute = require("./src/routes/productRoute")
 
 const app = express();
 
@@ -36,17 +41,19 @@ app.use(flash())
 app.set("views", path.resolve(__dirname, "src", "views"));
 app.set("view engine", "ejs");
 
+// Middlewares setup
 app.use(csrf())
+app.use(middlewareGlobal)
+app.use(checkCSRFERROR)
+app.use(csrfMiddleware)
 
-// Rotas
+// Routes setup
+app.use(homeRoute);
 app.use(loginRoute);
-
-app.get("/", checkLogin, (req, res) => {
-  res.render("index");
-});
+app.use(productRoute)
 
 app.use((req, res) => {
-  res.render("404");
+  res.status(404).render("404");
 });
 
 const port = process.env.PORT || 3000;

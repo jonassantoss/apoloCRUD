@@ -6,8 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'logo': 'Poetsen',
-        'display': 'Poppins, Arial, Helvetica, sans-serif'
+        sans: ["Inter", "sans-serif"]
       }
     },
   },
