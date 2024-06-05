@@ -3,9 +3,9 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient();
 
 class Product {
-    constructor(body, idParam = "") {
+    constructor(body) {
         this.body = body
-        this.idParam = idParam
+        this.idParam = ""
         this.errors = []
         this.product = null
     }

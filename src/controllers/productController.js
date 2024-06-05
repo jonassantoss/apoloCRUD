@@ -13,7 +13,7 @@ exports.register = async (req, res) => {
 
     if (product.errors.length > 0) {
       req.flash("errors", product.errors);
-      req.session.save(() => res.redirect(`/produto/editar/${product.idParam}`));
+      req.session.save(() => res.redirect(`/produto/index`));
       return;
     }
 
@@ -39,7 +39,8 @@ exports.editIndex = async (req, res) => {
 
 exports.edit = async (req, res) => {
   try {
-    const product = new Produto(req.body, req.params.id)
+    const product = new Produto(req.body)
+    product.idParam = req.params.id
     await product.edit()
 
     if (product.errors.length > 0) {
