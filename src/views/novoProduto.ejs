@@ -1,0 +1,80 @@
+<%- include('./partials/head.ejs') %>
+<%- include('./components/header.ejs') %>
+<div class="w-full h-full flex justify-center items-center">
+    <div class="bg-white flex flex-col p-8 space-y-4 my-5 items-center rounded-lg">
+        <h1 class="text-2xl text-center text-black">Produto</h1>
+
+        <%- include('./components/messages.ejs') %>
+
+        <% if (product.id) { %>
+            <form action="/produto/editar/<%= product.id %>" method="post" id="form-produto" class="flex flex-col gap-4">
+        <% } else { %>
+            <form action="/produto/novo" method="post" id="form-produto" class="flex flex-col gap-4">
+        <% } %>
+                <input type="hidden" name="_csrf" value=<%= csrfToken %>>
+                <label class="relative flex flex-col gap-2">
+                    <input
+                      value="<%= product.name %>"
+                      type="text" 
+                      name="productName" 
+                      class="form__input block w-full p-5 bg-transparent text-black border border-black rounded-md focus:outline-none" 
+                      placeholder=" " 
+                    />
+                    <span 
+                      class="form__label absolute text-base pointer-events-none left-[0.7rem] top-4 p-1 bg-white text-black transition-all ease-in duration-200" 
+                      aria-label="Nome do Produto"
+                    >
+                      Nome
+                    </span>
+                </label>
+                <label class="relative flex flex-col gap-2">
+                    <input 
+                      value="<%= product.description %>"
+                      type="text" 
+                      name="productDescription" 
+                      class="form__input block w-full p-5 bg-transparent text-black border border-black rounded-md focus:outline-none" 
+                      placeholder=" " 
+                    />
+                    <span 
+                      class="form__label absolute text-base pointer-events-none left-[0.7rem] top-4 p-1 bg-white text-black transition-all ease-in duration-200" 
+                      aria-label="Descrição do Produto"
+                    >
+                      Descrição
+                    </span>
+                </label>
+                <label class="relative flex flex-col gap-2">
+                    <input
+                      value="<%= product.price %>"
+                      type="text" 
+                      name="productPrice"
+                      class="form__input block w-full p-5 bg-transparent text-black border border-black rounded-md focus:outline-none" 
+                      placeholder=" " 
+                    />
+                    <span 
+                      class="form__label absolute text-base pointer-events-none left-[0.7rem] top-4 p-1 bg-white text-black transition-all ease-in duration-200" 
+                      aria-label="Preço do Produto"
+                    >
+                      R$
+                    </span>
+                </label>
+                <label class="relative flex flex-col gap-2">
+                    <input 
+                      type="number"
+                      value="<%= product.amount %>"
+                      min="0"
+                      name="productAmount" 
+                      class="form__input block w-full p-5 bg-transparent text-black border border-black rounded-md focus:outline-none" 
+                      placeholder=" " 
+                    />
+                    <span 
+                      class="form__label absolute text-base pointer-events-none left-[0.7rem] top-4 p-1 bg-white text-black transition-all ease-in duration-200" 
+                      aria-label="Quantidade"
+                    >
+                      Quantidade
+                    </span>
+                </label>
+                <button type="submit" class="bg-slate-700 p-4 rounded-md transition-all duration-500 hover:bg-slate-800">Enviar</button>
+            </form>
+    </div>
+</div>
+<%- include('./partials/footer.ejs') %>
