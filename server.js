@@ -9,14 +9,16 @@ const helmet = require("helmet");
 const csrf = require("csurf");
 
 // Import Middlewares
-const { middlewareGlobal, 
-        checkCSRFERROR,  
-        csrfMiddleware } = require("./src/middlewares/middlewares");
+const {
+  middlewareGlobal,
+  checkCSRFERROR,
+  csrfMiddleware,
+} = require("./src/middlewares/middlewares");
 
 // Import Routes
 const loginRoute = require("./src/routes/loginRoute");
-const homeRoute = require("./src/routes/homeRoute")
-const productRoute = require("./src/routes/productRoute")
+const homeRoute = require("./src/routes/homeRoute");
+const productRoute = require("./src/routes/productRoute");
 
 const app = express();
 
@@ -34,29 +36,29 @@ const sessionOptions = session({
   saveUninitialized: false,
 });
 
-app.use(sessionOptions)
-app.use(flash())
+app.use(sessionOptions);
+app.use(flash());
 
 // View Engine setup
 app.set("views", path.resolve(__dirname, "src", "views"));
 app.set("view engine", "ejs");
 
 // Middlewares setup
-app.use(csrf())
-app.use(middlewareGlobal)
-app.use(checkCSRFERROR)
-app.use(csrfMiddleware)
+app.use(csrf());
+app.use(middlewareGlobal);
+app.use(checkCSRFERROR);
+app.use(csrfMiddleware);
 
 // Routes setup
 app.use(homeRoute);
 app.use(loginRoute);
-app.use(productRoute)
+app.use(productRoute);
 
 app.use((req, res) => {
   res.status(404).render("404");
 });
 
-const port = process.env.PORT || 3000;
+const port = 3100;
 
 app.listen(port, () => {
   console.log(`Acessar em http://localhost:${port}`);

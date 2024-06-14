@@ -1,6 +1,150 @@
-<%- include('./partials/head.ejs') %>
-<%- include('./components/header.ejs') %>
+<%- include('./partials/head.ejs') %> <%- include('./components/header.ejs') %>
+<div class="mx-auto max-w-6xl p-12 space-y-6 px-5">
+  <form method="get" action="/" class="w-full flex">
+    <input
+      type="text"
+      value="<%= search %>"
+      name="search"
+      placeholder="Busque em seus produtos..."
+      class="w-full bg-transparent text-3xl font-semibold tracking-tighter outline-none placeholder:text-slate-500"
+    />
+    <button type="submit"><%- include('./assets/searchIcon.ejs') %></button>
+  </form>
 
+  <div class="h-px bg-slate-700"></div>
 
+  <div class="flex justify-between">
+    <a
+      class="w-1/4 rounded-md flex flex-col bg-slate-700 p-2 gap-3 text-sm font-medium text-slate-200 text-center outline-none hover:ring-2 hover:ring-slate-600"
+      href="/produto/novo"
+    >
+      Adicionar Produto
+    </a>
 
+    
+  </div>
+
+  <%- include('./components/messages.ejs') %>
+
+  <div class="rounded-md border border-slate-700 my-6">
+    <table class="w-full border-collapse shadow-sm">
+      <thead>
+        <tr>
+          <th class="px-3 py-4 text-left border-b border-b-slate-700">ID</th>
+          <th class="px-3 py-4 text-left border-b border-b-slate-700">Nome</th>
+          <th class="px-3 py-4 text-left border-b border-b-slate-700">
+            Descrição
+          </th>
+          <th class="px-3 py-4 text-left border-b border-b-slate-700">Preço</th>
+          <th class="px-3 py-4 text-left border-b border-b-slate-700">
+            Quantidade
+          </th>
+          <th class="px-3 py-4 text-left border-b border-b-slate-700">
+            Criado
+          </th>
+          <th class="px-3 py-4 text-left border-b border-b-slate-700">
+            Atualizado
+          </th>
+          <th class="px-3 py-4 text-left border-b border-b-slate-700"></th>
+          <th class="px-3 py-4 text-left border-b border-b-slate-700"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (products.length === 0) { %>
+        <tr class="text-center">
+          <td class="w-full">Nenhum produto encontrado</td>
+        </tr>
+        <% } else { %> <% products.forEach(item => { %>
+        <tr class="text-left border-b border-b-slate-700 hover:bg-slate-700/30">
+          <td class="px-3 py-4"><%= item.id %></td>
+          <td class="px-3 py-4"><%= item.name %></td>
+          <td class="px-3 py-4"><%= item.description %></td>
+          <td class="px-3 py-4">
+            <%= item.price.toLocaleString('pt-br', { style: "currency",
+            currency: "BRL" }) %>
+          </td>
+          <td class="text-center px-3 py-4"><%= item.amount %></td>
+          <td class="px-3 py-4"><%= item.createdAt.split('T')[0] %></td>
+          <td class="px-3 py-4"><%= item.updatedAt.split('T')[0] %></td>
+          <td>
+            <a
+              href="/produto/editar/<%= item.id %>"
+              class="button bg-slate-600 mx-2 hover:bg-slate-700"
+            >
+              Editar
+            </a>
+          </td>
+          <td>
+            <a
+              href="/produto/deletar/<%= item.id %>"
+              class="button bg-red-600 mx-2"
+            >
+              Excluir
+            </a>
+          </td>
+        </tr>
+        <% }) %> <% } %>
+      </tbody>
+    </table>
+
+    <div class="flex justify-between px-3 py-4">
+      <div>
+        <span>Exibindo <%= limit %> items de <%= count %></span>
+      </div>
+      <div class="flex gap-2 items-center">
+        <% if (currentPage === 1) { %>
+        <a
+          class="button bg-slate-700/30 text-slate-50/50 cursor-none pointer-events-none"
+        >
+          <%- include('./assets/doubleChevronLeft.ejs') %>
+        </a>
+        <a
+          class="button bg-slate-700/30 text-slate-50/50 cursor-none pointer-events-none"
+        >
+          <%- include('./assets/chevronLeft.ejs') %>
+        </a>
+        <% } else { %>
+        <a
+          class="button bg-slate-700 text-slate-200 hover:ring-2 hover:ring-slate-600"
+          href="?page=1&search=<%= search %>"
+        >
+          <%- include('./assets/doubleChevronLeft.ejs') %>
+        </a>
+        <a
+          class="button bg-slate-700 text-slate-200 hover:ring-2 hover:ring-slate-600"
+          href="?page=<%= currentPage - 1 %>&search=<%= search %>"
+        >
+          <%- include('./assets/chevronLeft.ejs') %>
+        </a>
+        <% } %>
+        <span>Page <%= currentPage %> of <%= totalPages %></span>
+        <% if (currentPage === totalPages) { %>
+        <a
+          class="button bg-slate-700/30 text-slate-50/50 cursor-none pointer-events-none"
+        >
+          <%- include('./assets/chevronRight.ejs') %>
+        </a>
+        <a
+          class="button bg-slate-700/30 text-slate-50/50 cursor-none pointer-events-none"
+        >
+          <%- include('./assets/doubleChevronRight.ejs') %>
+        </a>
+        <% } else { %>
+        <a
+          class="button bg-slate-700 text-slate-200 hover:ring-2 hover:ring-slate-600"
+          href="?page=<%= currentPage + 1 %>&search=<%= search %>"
+        >
+          <%- include('./assets/chevronRight.ejs') %>
+        </a>
+        <a
+          class="button bg-slate-700 text-slate-200 hover:ring-2 hover:ring-slate-600"
+          href="?page=<%= totalPages %>&search=<%= search %>"
+        >
+          <%- include('./assets/doubleChevronRight.ejs') %>
+        </a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
 <%- include('./partials/footer.ejs') %>

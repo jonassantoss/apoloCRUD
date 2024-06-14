@@ -1,58 +1,14 @@
-const dayjs = require('dayjs')
-const relativeTime = require('dayjs/plugin/relativeTime')
-require('dayjs/locale/pt-br')
-dayjs.extend(relativeTime);
-dayjs.locale('pt-br')
+const Product = require("../models/productModel");
 
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient()
-
-const Produto = require("../models/productModel");
-
-exports.index = async (req, res) => {
-  const { page = 1, search = '' } = req.query;
-  const limit = 10;
-  const skip = (page - 1) * limit;
-
-  const query = search ? { name: { contains: search } } : {}
-
-  try {
-      const products = await prisma.products.findMany({
-          where: query,
-          skip: skip,
-          take: limit,
-          orderBy: { createdAt: 'desc' }
-      })
-      const count = await prisma.products.count({ where: query })
-
-      const productsFormatted = products.map(product => {
-          product.createdAt = dayjs().to(product.createdAt.toLocaleString())
-          product.updatedAt = dayjs().to(product.updatedAt.toLocaleString())
-          return product
-      })
-
-    res.render("produto", {
-      product: {},
-      products: productsFormatted,
-      currentPage: parseInt(page),
-      totalPages: Math.ceil(count / limit),
-      search
-    })
-  } catch (error) {
-    console.error(error)
-    res.status(500).send('Internal Server Error')
-  }
-}
-
-exports.indexNovo = (req, res) => {
-  res.render("novoProduto", {
+exports.index = (req, res) => {
+  res.render("product", {
     product: {},
   });
 };
 
 exports.register = async (req, res) => {
   try {
-    const product = new Produto(req.body);
+    const product = new Product(req.body);
     await product.register();
 
     if (product.errors.length > 0) {
@@ -62,55 +18,54 @@ exports.register = async (req, res) => {
     }
 
     req.flash("success", "Produto registrado com sucesso");
-    req.session.save(() =>
-      res.redirect(`/produto`)
-    );
+    req.session.save(() => res.redirect(`/`));
     return;
   } catch (error) {
-    console.log(error)
-    res.render('404')
+    console.log(error);
+    res.render("404");
   }
 };
 
 exports.editIndex = async (req, res) => {
-    if (!req.params.id) return res.render('404')
+  if (!req.params.id) return res.render("404");
 
-    const product = await Produto.searchByID(req.params.id)
-    if (!product) return
+  const product = await Product.searchByID(req.params.id);
+  if (!product) return res.render("404");
 
-    res.render('produto', { product })
-}
+  res.render("product", { product, search: "" });
+};
 
 exports.edit = async (req, res) => {
   try {
-    const product = new Produto(req.body)
-    product.idParam = req.params.id
-    await product.edit()
+    const product = new Product(req.body);
+    product.idParam = req.params.id;
+    await product.edit();
 
     if (product.errors.length > 0) {
-      req.flash('errors', product.errors)
-      req.session.save(() => (res.redirect(`/produto/editar/${product.idParam}`)))
-      return
+      req.flash("errors", product.errors);
+      req.session.save(() => res.redirect(`/produto/editar/${product.idParam}`));
+      return;
     } else {
-      req.flash("success", "Produto editado com sucesso!")
-      req.session.save(() => res.redirect('/produto'))
-      return
+      req.flash("success", "Produto editado com sucesso!");
+      req.session.save(() => res.redirect("/"));
+      return;
     }
   } catch (error) {
-    console.log(error)
-    res.render('404')
+    console.log(error);
+    res.render("404");
   }
-}
+};
 
 exports.delete = async (req, res) => {
-  if (!req.params.id) res.render('404')
+  if (!req.params.id) res.render("404");
 
   try {
-    await Produto.delete(req.params.id)
-    req.flash('success', 'Produto excluido com sucesso!')
-    req.session.save(() => res.redirect('/produto'))
+    await Product.delete(req.params.id);
+    req.flash("success", "Produto excluido com sucesso!");
+    req.session.save(() => res.redirect("/"));
   } catch (error) {
-    console.log(error)
-    res.rend('404')
+    console.log(error);
+    req.flash("errors", "Ocorreu um erro ao excluir o produto.");
+    res.redirect("/");
   }
-}
+};
