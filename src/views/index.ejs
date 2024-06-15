@@ -16,12 +16,10 @@
   <div class="flex justify-between">
     <a
       class="w-1/4 rounded-md flex flex-col bg-slate-700 p-2 gap-3 text-sm font-medium text-slate-200 text-center outline-none hover:ring-2 hover:ring-slate-600"
-      href="/produto/novo"
+      href="/produtos/novo"
     >
       Adicionar Produto
     </a>
-
-    
   </div>
 
   <%- include('./components/messages.ejs') %>
@@ -68,7 +66,7 @@
           <td class="px-3 py-4"><%= item.updatedAt.split('T')[0] %></td>
           <td>
             <a
-              href="/produto/editar/<%= item.id %>"
+              href="/produtos/editar/<%= item.id %>"
               class="button bg-slate-600 mx-2 hover:bg-slate-700"
             >
               Editar
@@ -76,7 +74,7 @@
           </td>
           <td>
             <a
-              href="/produto/deletar/<%= item.id %>"
+              href="/produtos/deletar/<%= item.id %>"
               class="button bg-red-600 mx-2"
             >
               Excluir

@@ -13,7 +13,7 @@ exports.register = async (req, res) => {
 
     if (product.errors.length > 0) {
       req.flash("errors", product.errors);
-      req.session.save(() => res.redirect(`/produto/novo`));
+      req.session.save(() => res.redirect(`/produtos/novo`));
       return;
     }
 
@@ -43,7 +43,7 @@ exports.edit = async (req, res) => {
 
     if (product.errors.length > 0) {
       req.flash("errors", product.errors);
-      req.session.save(() => res.redirect(`/produto/editar/${product.idParam}`));
+      req.session.save(() => res.redirect(`/`));
       return;
     } else {
       req.flash("success", "Produto editado com sucesso!");
@@ -52,7 +52,7 @@ exports.edit = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.render("404");
+    return res.render("404");
   }
 };
 

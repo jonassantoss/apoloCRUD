@@ -7,9 +7,9 @@
         <%- include('./components/messages.ejs') %>
 
         <% if (product.id) { %>
-            <form action="/produto/editar/<%= product.id %>" method="post" id="form-produto" class="flex flex-col gap-4">
+            <form action="/produtos/editar/<%= product.id %>" method="post" id="form-produto" class="flex flex-col gap-4">
         <% } else { %>
-            <form action="/produto/novo" method="post" id="form-produto" class="flex flex-col gap-4">
+            <form action="/produtos/novo" method="post" id="form-produto" class="flex flex-col gap-4">
         <% } %>
                 <input type="hidden" name="_csrf" value=<%= csrfToken %>>
                 <label class="relative flex flex-col gap-2">
