@@ -77,7 +77,7 @@ npm install
 
 O uso do projeto é bem simples, basta apenas você colar o comando abaixo no terminal de seu diretório e uma mensagem será exibida com um link a ser clicado.
 
-<span style="color: #fca5a5; background: #ef4444; padding: 4px; border-radius: 8px">NOTA:</span> Apenas a página inicial está liberada, para usufruir das outras funcionalidades é necessário Login com as informações a seguir:
+<span style="color: #fca5a5; background: #ef4444; padding: 4px; border-radius: 8px">NOTA:</span> Apenas a página inicial está liberada, para usufruir das outras funcionalidades é necessário realizar o login com as informações a seguir:
 
 - email: admin@gmail.com
 - senha: senha@123
