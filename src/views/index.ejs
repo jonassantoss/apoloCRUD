@@ -12,20 +12,11 @@
   </form>
 
   <div class="h-px bg-slate-700"></div>
-
-  <div class="flex justify-between">
-    <a
-      class="w-1/4 rounded-md flex flex-col bg-slate-700 p-2 gap-3 text-sm font-medium text-slate-200 text-center outline-none hover:ring-2 hover:ring-slate-600"
-      href="/produtos/novo"
-    >
-      Adicionar Produto
-    </a>
-  </div>
-
+  
   <%- include('./components/messages.ejs') %>
 
   <div class="rounded-md border border-slate-700 my-6">
-    <div class="p-4">
+    <div class="flex justify-between items-center p-4">
       <span>
         Mostrar
         <select
@@ -39,6 +30,15 @@
         </select> 
         por linha
       </span>
+
+      <div>
+        <a
+          class="w-full rounded-md flex flex-col bg-slate-700 p-2 gap-3 text-sm font-medium text-slate-200 text-center outline-none hover:ring-2 hover:ring-slate-600"
+          href="/produtos/novo"
+        >
+          Adicionar Produto
+        </a>
+      </div>
     </div>
 
     <%- include('./components/table/index.ejs') %>

@@ -7,9 +7,7 @@
     "start": "nodemon --ignore public --ignore frontend",
     "dev": "webpack -w",
     "css": "npx tailwindcss -i ./frontend/assets/css/style.css -o ./frontend/assets/output.css --watch",
-    "seed": "node src/utils/seed.js",
-    "prepare": "husky",
-    "commit": "git-cz"
+    "seed": "node src/utils/seed.js"
   },
   "repository": {
     "type": "git",
@@ -18,11 +16,6 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "dependencies": {
     "@prisma/client": "^5.15.0",
     "bcryptjs": "^2.4.3",
@@ -43,23 +36,14 @@
     "@babel/cli": "^7.24.5",
     "@babel/core": "^7.24.5",
     "@babel/preset-env": "^7.24.5",
-    "@commitlint/cli": "^19.4.0",
-    "@commitlint/config-conventional": "^19.2.2",
     "@faker-js/faker": "^8.4.1",
     "babel-loader": "^9.1.3",
     "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^16.4.5",
-    "husky": "^9.1.4",
     "nodemon": "^3.1.0",
     "prisma": "^5.15.0",
     "tailwindcss": "^3.4.3",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
