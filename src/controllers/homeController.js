@@ -8,17 +8,17 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 exports.index = async (req, res) => {
-  const { page = 1, search = "" } = req.query;
-  const limit = 10;
-  const skip = (page - 1) * limit;
+  let { page = 1, search = "", rows = 10 } = req.query;
+  rows = parseInt(rows);
 
+  const skip = (page - 1) * rows;
   const query = search ? { name: { contains: search } } : {};
 
   try {
     const products = await prisma.products.findMany({
       where: query,
       skip: skip,
-      take: limit,
+      take: rows,
       orderBy: { createdAt: "desc" },
     });
     const count = await prisma.products.count({ where: query });
@@ -29,13 +29,15 @@ exports.index = async (req, res) => {
       return product;
     });
 
+    res.location(`/?page=${page}&rows=${rows}&search=${search}`);
+
     res.render("index", {
       product: {},
       products: productsFormatted,
       currentPage: parseInt(page),
-      totalPages: Math.ceil(count / limit),
+      totalPages: Math.ceil(count / rows),
       search,
-      limit,
+      rows,
       count,
     });
   } catch (error) {

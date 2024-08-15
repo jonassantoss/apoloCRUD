@@ -1,0 +1,60 @@
+<table class="w-full border-collapse shadow-sm">
+  <thead>
+    <tr>
+      <%- include('./headerCell.ejs', { content: "ID"}) %>
+      <%- include('./headerCell.ejs', { content: "Nome"}) %> 
+      <%- include('./headerCell.ejs', { content: "Descrição"}) %> 
+      <%- include('./headerCell.ejs', { content: "Preço"}) %> 
+      <%- include('./headerCell.ejs', { content: "Quantidade"}) %> 
+      <%- include('./headerCell.ejs', { content: "Criado"}) %> 
+      <%- include('./headerCell.ejs', { content: "Atualizado"}) %> 
+      <%- include('./headerCell.ejs', { content: ""}) %> 
+      <%- include('./headerCell.ejs', { content: ""}) %>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (products.length === 0) { %>
+    <tr class="text-center">
+      <td class="w-full">Nenhum produto encontrado</td>
+    </tr>
+    <% } else { %> 
+      <% products.forEach(item => { %>
+        <tr
+          class="text-left border-t border-b border-slate-700"
+        >
+          <%- include('./tableCell.ejs', { content: item.id}) %> 
+          <%- include('./tableCell.ejs', { content: item.name}) %> 
+          <%- include('./tableCell.ejs', { content: item.description}) %> 
+          <%- include('./tableCell.ejs', 
+            { content: item.price.toLocaleString('pt-br', 
+            { style: "currency", currency: "BRL" }
+            )}
+          ) %> 
+          <%- include('./tableCell.ejs', { content: item.amount}) %> 
+          <%- include('./tableCell.ejs', 
+            { content: item.createdAt.split('T')[0]}) 
+          %> 
+          <%- include('./tableCell.ejs', 
+            { content: item.createdAt.split('T')[0]}) 
+          %>
+          <td>
+            <a 
+              href="/produtos/editar/<%= item.id %>"
+              class="button bg-slate-600 mx-2 hover:bg-slate-700"
+            >
+              Editar
+            </a>
+          </td>
+          <td>
+            <a 
+              href="/produtos/deletar/<%= item.id %>"
+              class="button bg-red-600 mx-2"
+            >
+              Excluir
+            </a>
+          </td>
+        </tr>
+      <% }) %> 
+    <% } %>
+  </tbody>
+</table>
