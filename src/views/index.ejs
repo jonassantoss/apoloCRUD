@@ -1,6 +1,6 @@
 <%- include('./partials/head.ejs') %> <%- include('./components/header.ejs') %>
 <div class="mx-auto max-w-6xl px-5 py-2 space-y-6">
-  <form method="get" action="/" class="w-full flex">
+  <form id="search-form" method="get" action="/" class="w-full flex">
     <input
       type="text"
       value="<%= search %>"
@@ -23,10 +23,10 @@
           id="row-select"
           class="px-4 bg-slate-700 rounded-md border-none outline-none"
         >
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="15">15</option>
-          <option value="20">20</option>
+          <option value="5"  <%= rows === 5 ? 'selected' : '' %>>5</option>
+          <option value="10" <%= rows === 10 ? 'selected' : '' %>>10</option>
+          <option value="15" <%= rows === 15 ? 'selected' : '' %>>15</option>
+          <option value="20" <%= rows === 20 ? 'selected' : '' %>>20</option>
         </select> 
         por linha
       </span>

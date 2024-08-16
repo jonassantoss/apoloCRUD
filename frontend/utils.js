@@ -28,8 +28,6 @@ export function showSelectedRow(selectElement, url) {
       .filter((param) => param.includes("rows"))
       .toString()
       .split("=")[1];
-  } else {
-    rows = "10";
   }
 
   for (let option of selectElement.children) {

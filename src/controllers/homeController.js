@@ -8,8 +8,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 exports.index = async (req, res) => {
-  let { page = 1, search = "", rows = 10 } = req.query;
-  rows = parseInt(rows);
+  let { page = 1, search = "", rows } = req.query;
+  rows = parseInt(rows) || 10;
 
   const skip = (page - 1) * rows;
   const query = search ? { name: { contains: search } } : {};
