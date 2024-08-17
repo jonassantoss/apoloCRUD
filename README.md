@@ -75,18 +75,18 @@ npm install
 
 ## Uso
 
-O uso do projeto é bem simples, basta apenas você colar o comando abaixo no terminal de seu diretório e uma mensagem será exibida com um link a ser clicado.
+O uso do projeto é bem simples, basta apenas seguir os passos abaixo
+
+```bash
+npm install # instala as dependências do projeto
+npx prisma db seed # preenche o banco de dados do projeto com informações de produtos e o login de acesso
+npm run start # inicia o projeto
+```
 
 <span style="color: #fca5a5; background: #ef4444; padding: 4px; border-radius: 8px">NOTA:</span> Apenas a página inicial está liberada, para usufruir das outras funcionalidades é necessário realizar o login com as informações a seguir:
 
 - email: admin@gmail.com
 - senha: senha@123
-
-### Inicializar projeto
-
-```bash
-npm start
-```
 
 ## Estrutura do Projeto
 
