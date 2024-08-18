@@ -15,7 +15,7 @@ class Product {
 
     if (this.errors.length > 0) return;
 
-    const productExists = await prisma.products.findUnique({
+    const productExists = await prisma.product.findUnique({
       where: { name: this.body.name },
     });
 
@@ -23,7 +23,7 @@ class Product {
       this.errors.push("Produto já existe!");
     } else {
       try {
-        this.product = await prisma.products.create({
+        this.product = await prisma.product.create({
           data: this.body,
         });
       } catch (error) {
@@ -56,7 +56,7 @@ class Product {
     if (this.errors.length > 0) return;
 
     try {
-      this.product = await prisma.products.update({
+      this.product = await prisma.product.update({
         where: { id: this.idParam },
         data: this.body,
       });
@@ -81,11 +81,24 @@ class Product {
     };
   }
 
+  static async searchProducts({ where, skip, take, orderBy }) {
+    const products = await prisma.product.findMany({
+      where,
+      skip,
+      take,
+      orderBy
+    });
+
+    const count = await prisma.product.count({ where });
+
+    return { products, count };
+  }
+
   static async searchByID(id) {
     if (typeof id !== "string") return;
 
     try {
-      const product = await prisma.products.findUnique({
+      const product = await prisma.product.findUnique({
         where: { id },
       });
       return product;
@@ -99,7 +112,7 @@ class Product {
     if (typeof id !== "string") return;
 
     try {
-      await prisma.products.delete({
+      await prisma.product.delete({
         where: { id },
       });
     } catch (error) {

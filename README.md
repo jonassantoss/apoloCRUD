@@ -78,70 +78,87 @@ npm install
 O uso do projeto é bem simples, basta apenas seguir os passos abaixo
 
 ```bash
-npx prisma db seed # preenche o banco de dados do projeto com informações de produtos e o login de acesso
+npx prisma migrate deploy # cria o arquivo do banco de dados products.db
+npx prisma db seed # preenche o banco de dados do projeto com informações de produtos ficticíos e o login de acesso
 npm run start # inicia o projeto
 ```
 
-<span style="color: #fca5a5; background: #ef4444; padding: 4px; border-radius: 8px">NOTA:</span> Apenas a página inicial está liberada, para usufruir das outras funcionalidades é necessário realizar o login com as informações a seguir:
+<span style="color: #fff; background: #ef4444; padding: 4px; border-radius: 8px">NOTA:</span> Apenas a página inicial está liberada, para usufruir das outras funcionalidades é necessário realizar o login com as informações a seguir:
 
 - email: admin@gmail.com
 - senha: senha@123
 
 ## Estrutura do Projeto
 
-```plaintext
-apoloCRUD/
-├── .gitignore
-├── frontend/
-│   ├── assets/
-│   │   ├── css/
-│   │   │   └── style.css
-│   │   └── output.css
-│   └── main.js
-├── package-lock.json
-├── package.json
-├── prisma/
-│   ├── dev.db
-│   ├── migrations/
-│   │   └── migration_lock.toml
-│   └── schema.prisma
-├── public/
-│   ├── assets/
-│   │   └── js/
-│   │       ├── bundle.js
-│   │       └── bundle.js.map
-├── README.md
-├── server.js
-├── src/
-│   ├── controllers/
-│   │   ├── homeController.js
-│   │   ├── loginController.js
-│   │   └── productController.js
-│   ├── middlewares/
-│   │   └── middlewares.js
-│   ├── models/
-│   │   └── productModel.js
-│   ├── routes/
-│   │   ├── homeRoute.js
-│   │   ├── loginRoute.js
-│   │   └── productRoute.js
-│   ├── utils/
-│   │   └── seed.js
-│   ├── views/
-│   │   ├── 404.ejs
-│   │   ├── assets/
-│   │   │   └── icons/
-│   │   ├── components/
-│   │   │   ├── header.ejs
-│   │   │   └── messages.ejs
-│   │   ├── index.ejs
-│   │   ├── login.ejs
-│   │   ├── partials/
-│   │   │   ├── footer.ejs
-│   │   │   └── head.ejs
-│   │   └── product.ejs
-├── tailwind.config.js
-└── webpack.config.js
+```
+└── 📁apoloCRUD
+    └── 📁frontend
+        └── 📁assets
+            └── 📁css
+                └── style.css
+            └── output.css
+        └── main.js
+        └── utils.js
+    └── 📁prisma
+        └── 📁migrations
+            └── 📁20240524224252_migration_1
+                └── migration.sql
+            └── 📁20240817202123_change_product_model_name
+                └── migration.sql
+            └── migration_lock.toml
+        └── dev.db
+        └── products.db
+        └── schema.prisma
+        └── seed.js
+    └── 📁public
+        └── 📁assets
+            └── 📁js
+                └── bundle.js
+                └── bundle.js.map
+    └── 📁src
+        └── 📁controllers
+            └── homeController.js
+            └── loginController.js
+            └── productController.js
+        └── 📁middlewares
+            └── middlewares.js
+        └── 📁models
+            └── Product.js
+        └── 📁routes
+            └── homeRoute.js
+            └── loginRoute.js
+            └── productRoute.js
+        └── 📁utils
+            └── seed.js
+        └── 📁views
+            └── 📁assets
+                └── chevronLeft.ejs
+                └── chevronRight.ejs
+                └── doubleChevronLeft.ejs
+                └── doubleChevronRight.ejs
+                └── searchIcon.ejs
+            └── 📁components
+                └── 📁table
+                    └── headerCell.ejs
+                    └── index.ejs
+                    └── tableCell.ejs
+                └── header.ejs
+                └── messages.ejs
+            └── 📁partials
+                └── footer.ejs
+                └── head.ejs
+            └── 404.ejs
+            └── index.ejs
+            └── login.ejs
+            └── product.ejs
+        └── server.js
+    └── .gitignore
+    └── LICENSE
+    └── package-lock.json
+    └── package.json
+    └── README.md
+    └── tailwind.config.js
+    └── webpack.config.js
 ```
 
 - frontend/assets: Contém os arquivos estáticos como CSS e JavaScript.

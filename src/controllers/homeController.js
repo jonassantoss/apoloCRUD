@@ -1,10 +1,12 @@
+const { PrismaClient } = require("@prisma/client");
 const dayjs = require("dayjs");
 const relativeTime = require("dayjs/plugin/relativeTime");
 require("dayjs/locale/pt-br");
 dayjs.extend(relativeTime);
 dayjs.locale("pt-br");
 
-const { PrismaClient } = require("@prisma/client");
+const Product = require("../models/Product");
+
 const prisma = new PrismaClient();
 
 exports.index = async (req, res) => {
@@ -15,13 +17,12 @@ exports.index = async (req, res) => {
   const query = search ? { name: { contains: search } } : {};
 
   try {
-    const products = await prisma.products.findMany({
+    const { products, count } = await Product.searchProducts({
       where: query,
       skip: skip,
       take: rows,
       orderBy: { createdAt: "desc" },
     });
-    const count = await prisma.products.count({ where: query });
 
     const productsFormatted = products.map((product) => {
       product.createdAt = dayjs().to(product.createdAt.toLocaleString());

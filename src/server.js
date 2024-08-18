@@ -13,19 +13,19 @@ const {
   middlewareGlobal,
   checkCSRFERROR,
   csrfMiddleware,
-} = require("./src/middlewares/middlewares");
+} = require("./middlewares/middlewares");
 
 // Import Routes
-const loginRoute = require("./src/routes/loginRoute");
-const homeRoute = require("./src/routes/homeRoute");
-const productRoute = require("./src/routes/productRoute");
+const loginRoute = require("./routes/loginRoute");
+const homeRoute = require("./routes/homeRoute");
+const productRoute = require("./routes/productRoute");
 
 const app = express();
 
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.resolve(__dirname, "public")));
+app.use(express.static(path.resolve(__dirname, "..", "public")));
 
 const sessionOptions = session({
   secret: "apolo@123",
@@ -40,7 +40,7 @@ app.use(sessionOptions);
 app.use(flash());
 
 // View Engine setup
-app.set("views", path.resolve(__dirname, "src", "views"));
+app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // Middlewares setup

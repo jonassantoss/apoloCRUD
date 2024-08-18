@@ -2,12 +2,11 @@
   "name": "apolo",
   "version": "1.0.0",
   "description": "Projeto Apolo - Aplicativo para gerenciamento de produtos",
-  "main": "server.js",
+  "main": "./src/server.js",
   "scripts": {
     "start": "nodemon --ignore public --ignore frontend",
     "dev": "webpack -w",
-    "css": "npx tailwindcss -i ./frontend/assets/css/style.css -o ./frontend/assets/output.css --watch",
-    "seed": "node src/utils/seed.js"
+    "css": "npx tailwindcss -i ./frontend/assets/css/style.css -o ./frontend/assets/output.css --watch"
   },
   "repository": {
     "type": "git",
