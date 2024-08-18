@@ -78,7 +78,6 @@ npm install
 O uso do projeto é bem simples, basta apenas seguir os passos abaixo
 
 ```bash
-npm install # instala as dependências do projeto
 npx prisma db seed # preenche o banco de dados do projeto com informações de produtos e o login de acesso
 npm run start # inicia o projeto
 ```
