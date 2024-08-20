@@ -15,7 +15,7 @@
   <tbody>
     <% if (products.length === 0) { %>
     <tr class="text-center">
-      <td class="w-full">Nenhum produto encontrado</td>
+      <td class="w-full p-2">Nenhum produto encontrado</td>
     </tr>
     <% } else { %> 
       <% products.forEach(item => { %>
@@ -58,3 +58,4 @@
     <% } %>
   </tbody>
 </table>
+<%- include('./footer.ejs') %>

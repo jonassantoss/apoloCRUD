@@ -9,5 +9,6 @@ router.post("/produtos/novo", checkLogin, productController.register);
 router.get("/produtos/editar/:id", checkLogin, productController.editIndex);
 router.post("/produtos/editar/:id", checkLogin, productController.edit);
 router.get("/produtos/deletar/:id", checkLogin, productController.delete);
+router.get("/produtos/exportar", checkLogin, productController.exportTable);
 
 module.exports = router;

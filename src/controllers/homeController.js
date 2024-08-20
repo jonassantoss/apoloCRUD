@@ -1,4 +1,3 @@
-const { PrismaClient } = require("@prisma/client");
 const dayjs = require("dayjs");
 const relativeTime = require("dayjs/plugin/relativeTime");
 require("dayjs/locale/pt-br");
@@ -6,8 +5,6 @@ dayjs.extend(relativeTime);
 dayjs.locale("pt-br");
 
 const Product = require("../models/Product");
-
-const prisma = new PrismaClient();
 
 exports.index = async (req, res) => {
   let { page = 1, search = "", rows } = req.query;
@@ -21,7 +18,6 @@ exports.index = async (req, res) => {
       where: query,
       skip: skip,
       take: rows,
-      orderBy: { createdAt: "desc" },
     });
 
     const productsFormatted = products.map((product) => {

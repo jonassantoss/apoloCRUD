@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const { v7: uuidV7 } = require("uuid");
 
 const prisma = new PrismaClient();
 
@@ -24,7 +25,10 @@ class Product {
     } else {
       try {
         this.product = await prisma.product.create({
-          data: this.body,
+          data: {
+            id: uuidV7(),
+            ...this.body,
+          },
         });
       } catch (error) {
         this.errors.push("Erro ao registrar o produto");
@@ -81,17 +85,32 @@ class Product {
     };
   }
 
-  static async searchProducts({ where, skip, take, orderBy }) {
-    const products = await prisma.product.findMany({
-      where,
-      skip,
-      take,
-      orderBy
-    });
+  static async searchProducts({
+    where = {},
+    skip,
+    take,
+    orderBy,
+  } = {}) {
+    try {
+      const queryOptions = {};
 
-    const count = await prisma.product.count({ where });
+      if (Object.keys(where).length) queryOptions.where = where;
+      if (skip !== undefined) queryOptions.skip = skip;
+      if (take !== undefined) queryOptions.take = take;
+      if (orderBy !== undefined) queryOptions.orderBy = orderBy;
 
-    return { products, count };
+      const [products, count] = await Promise.all([
+        prisma.product.findMany(queryOptions),
+        prisma.product.count({ where }),
+      ]);
+
+      return { products, count };
+    } catch (error) {
+      console.error("Erro ao buscar produtos: ", error);
+      throw new Error(
+        "Não foi possivel buscar os produtos. Tente novamente mais tarde."
+      );
+    }
   }
 
   static async searchByID(id) {

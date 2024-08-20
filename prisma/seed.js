@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const { v7: uuidV7} = require("uuid");
 const { faker } = require("@faker-js/faker");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
@@ -32,6 +33,7 @@ async function generateProducts(numProducts) {
   const products = [];
   for (let i = 0; i < numProducts; i++) {
     const product = {
+      id: uuidV7(),
       name: faker.commerce.productName(),
       description: faker.lorem.sentence(),
       price: Number(faker.commerce.price({ min: 10, max: 200 })),

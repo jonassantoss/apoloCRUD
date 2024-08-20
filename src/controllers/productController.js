@@ -1,4 +1,8 @@
-const Product = require("../models/Product");
+const path = require("path");
+const fs = require("fs");
+
+const Product = require("../models/Product.js");
+const exportToExcel = require("../utils/exportToExcel.js");
 
 exports.index = (req, res) => {
   res.render("product", {
@@ -67,5 +71,42 @@ exports.delete = async (req, res) => {
     console.log(error);
     req.flash("errors", "Ocorreu um erro ao excluir o produto.");
     res.redirect("/");
+  }
+};
+
+exports.exportTable = async (req, res) => {
+  const downloadDir = path.resolve("public", "downloads");
+  console.log(downloadDir);
+
+  try {
+    const { products } = await Product.searchProducts();
+    const outputFile = "products.csv";
+    const filePath = path.join(downloadDir, outputFile);
+
+    await exportToExcel(products, filePath);
+
+    res.attachment(outputFile);
+    res.sendFile(filePath, (err) => {
+      if (err) {
+        console.error("Erro ao enviar o arquivo: ", err);
+        return res.status(500).json({
+          success: false,
+          message: "Erro ao enviar o arquivo",
+        });
+      }
+
+      setImmediate(() => {
+        fs.unlink(filePath, (unlinkErr) => {
+          if (unlinkErr)
+            console.error("Erro ao excluir o arquivo: ", unlinkErr);
+        });
+      });
+    });
+  } catch (error) {
+    console.error("Erro ao exportar a tabela: ", error);
+    return res.status(500).json({
+      success: false,
+      message: "Erro ao exportar a tabela.",
+    });
   }
 };

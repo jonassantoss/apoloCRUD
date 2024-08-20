@@ -17,26 +17,3 @@ export function updateURLParameter(url, param, paramValue) {
   let pageParam = temp + param + "=" + paramValue;
   return path + "?" + newAdditionalURL + pageParam;
 }
-
-export function showSelectedRow(selectElement, url) {
-  let rows;
-
-  if (url.includes("rows")) {
-    rows = url
-      .split("?")[1]
-      .split("&")
-      .filter((param) => param.includes("rows"))
-      .toString()
-      .split("=")[1];
-  }
-
-  for (let option of selectElement.children) {
-    if (option.getAttribute("selected")) {
-      option.setAttribute("selected", "false");
-    }
-
-    if (option.value === rows) {
-      option.setAttribute("selected", "true");
-    }
-  }
-}

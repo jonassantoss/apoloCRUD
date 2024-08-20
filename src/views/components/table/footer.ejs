@@ -1,0 +1,71 @@
+<% if (products.length > 0) { %>
+  <div class="flex justify-between px-3 py-4">
+    <div>
+      <span>Exibindo <%= rows %> items de <%= count %></span>
+    </div>
+    
+    <div class="flex gap-2 items-center">
+      <div class="flex gap-2">
+        <% if (currentPage === 1) { %>
+          <button
+            class="button bg-slate-700/30 text-slate-50/50 cursor-none pointer-events-none"
+          >
+            <%- include('../../assets/doubleChevronLeft.ejs') %>
+          </button>
+          <button
+            class="button bg-slate-700/30 text-slate-50/50 cursor-none pointer-events-none"
+          >
+            <%- include('../../assets/chevronLeft.ejs') %>
+          </button>
+        <% } else { %>
+          <button
+            id="firstPageButton"
+            class="button bg-slate-700 text-slate-200 hover:ring-2 hover:ring-slate-600"
+            data-to-page="<%= 1 %>"
+          >
+            <%- include('../../assets/doubleChevronLeft.ejs') %>
+          </button>
+          <button
+            id="previousPageButton"
+            class="button bg-slate-700 text-slate-200 hover:ring-2 hover:ring-slate-600"
+            data-to-page="<%= currentPage - 1 %>"
+          >
+            <%- include('../../assets/chevronLeft.ejs') %>
+          </button>
+        <% } %>
+      </div>
+
+      <span>Page <%= currentPage %> of <%= totalPages %></span>
+
+      <div class="flex gap-2">
+        <% if (currentPage === totalPages) { %>
+          <button
+            class="button bg-slate-700/30 text-slate-50/50 cursor-none pointer-events-none"
+          >
+            <%- include('../../assets/chevronRight.ejs') %>
+          </button>
+          <button
+            class="button bg-slate-700/30 text-slate-50/50 cursor-none pointer-events-none"
+          >
+            <%- include('../../assets/doubleChevronRight.ejs') %>
+          </button>
+        <% } else { %>
+          <button
+            id="nextPageButton"
+            class="button bg-slate-700 text-slate-200 hover:ring-2 hover:ring-slate-600"
+            data-to-page="<%= currentPage + 1 %>"
+          >
+            <%- include('../../assets/chevronRight.ejs') %>
+          </button>
+          <button
+            id="lastPageButton"
+            class="button bg-slate-700 text-slate-200 hover:ring-2 hover:ring-slate-600"
+            data-to-page="<%= totalPages %>"
+          >
+            <%- include('../../assets/doubleChevronRight.ejs') %>
+          </button>
+        <% } %>
+      </div>
+    </div>
+  </div>
+<% } %>

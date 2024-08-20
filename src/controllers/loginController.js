@@ -10,7 +10,7 @@ exports.login = async (req, res, next) => {
 
   try {
     const { user, pswd } = req.body;
-    const adminExists = await prisma.users.findUnique({
+    const adminExists = await prisma.user.findUnique({
       where: { email: user },
     });
 
