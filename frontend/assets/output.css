@@ -1071,6 +1071,11 @@ video {
   --tw-ring-color: rgb(71 85 105 / var(--tw-ring-opacity));
 }
 
+.hover\:ring-slate-900:hover {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(15 23 42 / var(--tw-ring-opacity));
+}
+
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;

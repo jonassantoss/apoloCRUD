@@ -25,32 +25,6 @@ form.addEventListener("submit", async (event) => {
   window.location.href = currentURL;
 });
 
-exportTableButton.addEventListener("click", async (event) => {
-  const exportTableURL = event.target.href;
-
-  try {
-    const response = await fetch(exportTableURL, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-    const a = document.createElement('a');
-    a.href = exportTableURL;
-    a.download = 'products.csv';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.location.href = '/';
-  } catch (error) {
-    console.error(error);
-    alert("Erro ao exportar a tabela.");
-  }
-});
-
 firstPageButton?.addEventListener("click", () => {
   const toPage = parseInt(firstPageButton.getAttribute("data-to-page"));
   goToPage(toPage);

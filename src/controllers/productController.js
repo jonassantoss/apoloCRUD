@@ -75,36 +75,26 @@ exports.delete = async (req, res) => {
 };
 
 exports.exportTable = async (req, res) => {
-  const downloadDir = path.resolve("public", "downloads");
-  console.log(downloadDir);
-
   try {
     const { products } = await Product.searchProducts();
+    const downloadDir = path.resolve("public", "downloads");
     const outputFile = "products.csv";
     const filePath = path.join(downloadDir, outputFile);
 
+    if (!fs.existsSync(downloadDir)) {
+      fs.mkdirSync(downloadDir, { recursive: true });
+    }
+
     await exportToExcel(products, filePath);
 
-    res.attachment(outputFile);
-    res.sendFile(filePath, (err) => {
-      if (err) {
-        console.error("Erro ao enviar o arquivo: ", err);
-        return res.status(500).json({
-          success: false,
-          message: "Erro ao enviar o arquivo",
-        });
-      }
-
-      setImmediate(() => {
-        fs.unlink(filePath, (unlinkErr) => {
-          if (unlinkErr)
-            console.error("Erro ao excluir o arquivo: ", unlinkErr);
-        });
-      });
+    return res.render("downloadTable", {
+      success: true,
+      message: "Clique aqui para baixar sua tabela.",
+      filePath: `/downloads/products.csv`,
     });
   } catch (error) {
     console.error("Erro ao exportar a tabela: ", error);
-    return res.status(500).json({
+    return res.render("downloadTable", {
       success: false,
       message: "Erro ao exportar a tabela.",
     });
