@@ -40,6 +40,7 @@
     "@babel/cli": "^7.24.5",
     "@babel/core": "^7.24.5",
     "@babel/preset-env": "^7.24.5",
+    "@biomejs/biome": "1.8.3",
     "@faker-js/faker": "^8.4.1",
     "@types/uuid": "^10.0.0",
     "babel-loader": "^9.1.3",

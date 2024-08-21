@@ -3,16 +3,16 @@ require("dotenv").config();
 // General Imports
 const express = require("express");
 const session = require("express-session");
-const path = require("path");
+const path = require("node:path");
 const flash = require("connect-flash");
 const helmet = require("helmet");
 const csrf = require("csurf");
 
 // Import Middlewares
 const {
-  middlewareGlobal,
-  checkCSRFERROR,
-  csrfMiddleware,
+	middlewareGlobal,
+	checkCSRFERROR,
+	csrfMiddleware,
 } = require("./middlewares/middlewares");
 
 // Import Routes
@@ -28,12 +28,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, "..", "public")));
 
 const sessionOptions = session({
-  secret: "apolo@123",
-  cookie: {
-    maxAge: 1600000,
-  },
-  resave: false,
-  saveUninitialized: false,
+	secret: "apolo@123",
+	cookie: {
+		maxAge: 1600000,
+	},
+	resave: false,
+	saveUninitialized: false,
 });
 
 app.use(sessionOptions);
@@ -55,11 +55,11 @@ app.use(loginRoute);
 app.use(productRoute);
 
 app.use((req, res) => {
-  res.status(404).render("404");
+	res.status(404).render("404");
 });
 
 const port = 3100;
 
 app.listen(port, () => {
-  console.log(`Acessar em http://localhost:${port}`);
+	console.log(`Acessar em http://localhost:${port}`);
 });
